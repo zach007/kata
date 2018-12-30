@@ -1,4 +1,4 @@
-package com.hsbc.kata;
+package com.hsbc.kata.fizzBuzz;
 
 public class FizzBuzz {
 
