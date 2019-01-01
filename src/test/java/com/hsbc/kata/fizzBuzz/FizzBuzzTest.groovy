@@ -1,6 +1,5 @@
-package com.hsbc.kata
+package com.hsbc.kata.fizzBuzz
 
-import com.hsbc.kata.fizzBuzz.FizzBuzz
 import spock.lang.Specification
 import spock.lang.Unroll
 
