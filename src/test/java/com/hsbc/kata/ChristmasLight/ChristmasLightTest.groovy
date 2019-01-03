@@ -43,7 +43,10 @@ class ChristmasLightTest extends Specification {
         where:
         point1          | point2            || result
         new Point(0, 0) | new Point(999, 0) || 1000
-        new Point(0, 0) | new Point(2, 2)   || 9
+        new Point(2, 2) | new Point(3, 4)   || 6
+        new Point(2, 2) | new Point(3, 0)   || 6
+        new Point(2, 2) | new Point(1, 4)   || 6
+        new Point(2, 2) | new Point(1, 0)   || 6
     }
 
     def "should return #result when turn off light from #point1 to #point2"() {

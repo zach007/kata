@@ -51,27 +51,13 @@ public class ChristmasLight {
             int startB = pointB.getStart();
             int endA = pointA.getEnd();
             int endB = pointB.getEnd();
-            if (startA >= startB) {
-                if (endA >= endB) {
-                    boolean length = startB <= currentPointStart && currentPointStart <= startA;
-                    boolean width = endB <= currentPointEnd && currentPointEnd <= endA;
-                    return length && width;
-                } else {
-                    boolean length = startB <= currentPointStart && currentPointStart <= startA;
-                    boolean width = endA <= currentPointEnd && currentPointEnd <= endB;
-                    return length && width;
-                }
-            } else {
-                if (endA >= endB) {
-                    boolean betweenLength = startA <= currentPointStart && currentPointStart <= startB;
-                    boolean betweenWidth = endB <= currentPointEnd && currentPointEnd <= endA;
-                    return betweenLength && betweenWidth;
-                } else {
-                    boolean betweenLength = startA <= currentPointStart && currentPointStart <= startB;
-                    boolean betweenWidth = endA <= currentPointEnd && currentPointEnd <= endB;
-                    return betweenLength && betweenWidth;
-                }
-            }
+            int foo = Math.min(startA, startB);
+            int maxFoo = Math.max(startA, startB);
+            int bar = Math.min(endA, endB);
+            int maxBar = Math.max(endA, endB);
+            boolean test = foo <= currentPointStart && currentPointStart <= maxFoo;
+            boolean check = bar <= currentPointEnd && currentPointEnd <= maxBar;
+            return test && check;
         }).collect(Collectors.toList());
         return pointArray;
     }
