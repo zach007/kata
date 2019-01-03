@@ -54,6 +54,8 @@ class ChristmasLightTest extends Specification {
         where:
         point1              | point2              || result
         new Point(499, 499) | new Point(500, 500) || 4
+        new Point(2, 2)     | new Point(0, 0)     || 9
+
     }
 
     def "should return 998996 after finish instructions"() {

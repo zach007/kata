@@ -45,9 +45,33 @@ public class ChristmasLight {
 
     public List<Point> findPoints(Point pointA, Point pointB) {
         List<Point> pointArray = points.stream().filter(p -> {
-            boolean betweenLength = pointA.getStart() <= p.getStart() && p.getStart() <= pointB.getStart();
-            boolean betweenWidth = pointA.getEnd() <= p.getEnd() && p.getEnd() <= pointB.getEnd();
-            return betweenLength && betweenWidth;
+            int currentPointStart = p.getStart();
+            int currentPointEnd = p.getEnd();
+            int startA = pointA.getStart();
+            int startB = pointB.getStart();
+            int endA = pointA.getEnd();
+            int endB = pointB.getEnd();
+            if (startA >= startB) {
+                if (endA >= endB) {
+                    boolean length = startB <= currentPointStart && currentPointStart <= startA;
+                    boolean width = endB <= currentPointEnd && currentPointEnd <= endA;
+                    return length && width;
+                } else {
+                    boolean length = startB <= currentPointStart && currentPointStart <= startA;
+                    boolean width = endA <= currentPointEnd && currentPointEnd <= endB;
+                    return length && width;
+                }
+            } else {
+                if (endA >= endB) {
+                    boolean betweenLength = startA <= currentPointStart && currentPointStart <= startB;
+                    boolean betweenWidth = endB <= currentPointEnd && currentPointEnd <= endA;
+                    return betweenLength && betweenWidth;
+                } else {
+                    boolean betweenLength = startA <= currentPointStart && currentPointStart <= startB;
+                    boolean betweenWidth = endA <= currentPointEnd && currentPointEnd <= endB;
+                    return betweenLength && betweenWidth;
+                }
+            }
         }).collect(Collectors.toList());
         return pointArray;
     }
