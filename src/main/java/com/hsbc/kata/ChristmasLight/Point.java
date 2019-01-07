@@ -2,10 +2,8 @@ package com.hsbc.kata.ChristmasLight;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 @Data
-@Getter
 @EqualsAndHashCode(exclude = {"status"})
 public class Point {
     private int start;
@@ -16,4 +14,5 @@ public class Point {
         this.start = p;
         this.end = q;
     }
+
 }

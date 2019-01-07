@@ -24,23 +24,24 @@ public class ChristmasLight {
     }
 
     public long findTurnOnLights() {
-        return points.stream().filter(point -> point.getStatus() == 1).count();
+        return points.stream().mapToInt(p -> p.getStatus()).sum();
     }
 
-    public List<Point> turnOn(Point pointA, Point pointB) {
+    public void turnOn(Point pointA, Point pointB) {
         List<Point> points = findPoints(pointA, pointB);
-        points.stream().forEach(p -> p.setStatus(1));
-        return points;
+        points.stream().forEach(p -> {
+            int increaseNumber = p.getStatus() + 1;
+            p.setStatus(increaseNumber);
+        });
     }
 
-    public List<Point> toggle(Point pointA, Point pointB) {
+    public void toggle(Point pointA, Point pointB) {
         List<Point> points = findPoints(pointA, pointB);
         points.stream().forEach(point -> {
             int status = point.getStatus();
-            status ^= 1;
+            status += 2;
             point.setStatus(status);
         });
-        return points;
     }
 
     public List<Point> findPoints(Point pointA, Point pointB) {
@@ -64,7 +65,12 @@ public class ChristmasLight {
 
     public List<Point> turnOff(Point pointA, Point pointB) {
         List<Point> points = findPoints(pointA, pointB);
-        points.stream().forEach(point -> point.setStatus(0));
+        points.stream().forEach(point -> {
+            int status = point.getStatus();
+            status -= 1;
+            int newStatus = status >= 0 ? status : 0;
+            point.setStatus(newStatus);
+        });
         return points;
     }
 }
