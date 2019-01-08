@@ -58,4 +58,9 @@ class ChristmasLightTest extends Specification {
         expect:
         christmasLight.findTurnOnLights() == 1000000 * 2
     }
+
+    def "seems wrong answer"() {
+
+    }
+
 }
