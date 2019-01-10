@@ -59,8 +59,4 @@ class ChristmasLightTest extends Specification {
         christmasLight.findTurnOnLights() == 1000000 * 2
     }
 
-    def "seems wrong answer"() {
-
-    }
-
 }
