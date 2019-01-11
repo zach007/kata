@@ -29,4 +29,18 @@ class PriceTest extends Specification {
         1000       || 1000 - (1000 * 0.03)
         5000       || 5000 - (5000 * 0.05)
     }
+
+    @Unroll
+    def "will return #statePrice when give a #discountPrice and #stateRate"() {
+        expect:
+        price.getStatePrice(discountPrice, stateRate) == statePrice
+        where:
+        discountPrice | stateRate || statePrice
+        1000          | "UT"      || 1000 - (1000 * 0.0685)
+        1000          | "NV"      || 1000 - (1000 * 0.0800)
+        1000          | "TX"      || 1000 - (1000 * 0.0625)
+        1000          | "AL"      || 1000 - (1000 * 0.0400)
+        1000          | "CA"      || 1000 - (1000 * 0.0825)
+        1000          | "NONE"    || 1000
+    }
 }
