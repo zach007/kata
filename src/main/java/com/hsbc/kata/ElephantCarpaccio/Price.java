@@ -23,8 +23,10 @@ public class Price {
         }
     }
 
-    public int getTotalPrice(int totalItems, BigDecimal pricePerItem, String statusCode) {
-        return -1;
+    public BigDecimal getTotalPrice(int totalItems, BigDecimal pricePerItem, String statusCode) {
+        BigDecimal initPrice = getInitPrice(totalItems, pricePerItem);
+        BigDecimal discountValue = getDiscountValue(initPrice);
+        return getStatePrice(discountValue, statusCode);
     }
 
     public BigDecimal getStatePrice(BigDecimal discountPrice, String stateCode) {
@@ -41,6 +43,10 @@ public class Price {
         } else {
             return discountPrice;
         }
+    }
+
+    public BigDecimal getInitPrice(int itemCount, BigDecimal itemPrice) {
+        return itemPrice.multiply(BigDecimal.valueOf(itemCount));
     }
 
     enum StateRate {

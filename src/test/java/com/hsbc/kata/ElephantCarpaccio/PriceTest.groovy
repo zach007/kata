@@ -6,17 +6,19 @@ import spock.lang.Unroll
 class PriceTest extends Specification {
     def price = new Price()
 
+    //todo try to understand more about the business to create test case
     def "return return total price after given a discount rate and tax rate"() {
         when: "total items"
         and: "price per items"
         and: "given state code"
         then: "should return finalPrice after all kind of tax"
-        price.getTotalPrice(1, 12.32, "UT") == finalPrice
+        price.getTotalPrice(totalItems, pricePerItem, stateSode) == finalPrice
         where:
-        _ || finalPrice
-        _ || 0
+        totalItems | pricePerItem | stateSode || finalPrice
+        0          | 0            | 0         || 0
     }
 
+    //todo refactor code
     @Unroll
     def "will return #discoutPrice when match the #orderValue"() {
         expect:
@@ -42,5 +44,14 @@ class PriceTest extends Specification {
         1000          | "AL"      || 1000 - (1000 * 0.0400)
         1000          | "CA"      || 1000 - (1000 * 0.0825)
         1000          | "NONE"    || 1000
+    }
+
+    @Unroll
+    def "should return #itemTotalPrice when buy #itemCount of item per #itemPrice"() {
+        expect:
+        price.getInitPrice(itemCount, itemPrice) == itemTotalPrice
+        where:
+        itemCount | itemPrice || itemTotalPrice
+        10        | 20.12     || 10 * 20.12
     }
 }
