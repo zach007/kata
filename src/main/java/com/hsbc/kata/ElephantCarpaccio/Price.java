@@ -6,18 +6,18 @@ import java.math.BigDecimal;
 
 public class Price {
     public BigDecimal getDiscountValue(BigDecimal p) {
-        if (p.compareTo(BigDecimal.valueOf(50000)) >= 0) {
-            return DiscoutRate.FIFTYTHOUSAND.getDiscountPrice();
-        } else if (p.compareTo(BigDecimal.valueOf(10000)) >= 0) {
-            return DiscoutRate.TENTHOUSAND.getDiscountPrice();
-        } else if (p.compareTo(BigDecimal.valueOf(7000)) >= 0) {
-            return DiscoutRate.SERVENTHOUSAND.getDiscountPrice();
-        } else if (p.compareTo(BigDecimal.valueOf(5000)) >= 0) {
-            return DiscoutRate.FIVETHOUSAND.getDiscountPrice();
-        } else if (p.compareTo(BigDecimal.valueOf(1000)) >= 0) {
-            return DiscoutRate.ONETHOUSAND.getDiscountPrice();
+        if (p.compareTo(DiscoutRate.FIFTYTHOUSAND.getOrderValue()) >= 0) {
+            return DiscoutRate.FIFTYTHOUSAND.getDiscountPrice(p);
+        } else if (p.compareTo(DiscoutRate.TENTHOUSAND.getOrderValue()) >= 0) {
+            return DiscoutRate.TENTHOUSAND.getDiscountPrice(p);
+        } else if (p.compareTo(DiscoutRate.SERVENTHOUSAND.getOrderValue()) >= 0) {
+            return DiscoutRate.SERVENTHOUSAND.getDiscountPrice(p);
+        } else if (p.compareTo(DiscoutRate.FIVETHOUSAND.getOrderValue()) >= 0) {
+            return DiscoutRate.FIVETHOUSAND.getDiscountPrice(p);
+        } else if (p.compareTo(DiscoutRate.ONETHOUSAND.getOrderValue()) >= 0) {
+            return DiscoutRate.ONETHOUSAND.getDiscountPrice(p);
         } else if (p.compareTo(BigDecimal.valueOf(0)) <= 0) {
-            return DiscoutRate.SMALLERTHANZERO.getDiscountPrice();
+            return BigDecimal.ZERO;
         } else {
             return p;
         }
@@ -75,8 +75,7 @@ public class Price {
         FIVETHOUSAND(BigDecimal.valueOf(5000), 0.05),
         SERVENTHOUSAND(BigDecimal.valueOf(7000), 0.05),
         TENTHOUSAND(BigDecimal.valueOf(10000), 0.05),
-        FIFTYTHOUSAND(BigDecimal.valueOf(50000), 0.05),
-        SMALLERTHANZERO(BigDecimal.valueOf(0), 0);
+        FIFTYTHOUSAND(BigDecimal.valueOf(50000), 0.05);
         @Getter
         private BigDecimal orderValue;
         @Getter
@@ -87,8 +86,8 @@ public class Price {
             this.discoutRate = discoutRate;
         }
 
-        public BigDecimal getDiscountPrice() {
-            return orderValue.subtract(orderValue.multiply(BigDecimal.valueOf(discoutRate)));
+        public BigDecimal getDiscountPrice(BigDecimal initPrice) {
+            return initPrice.subtract(initPrice.multiply(BigDecimal.valueOf(discoutRate)));
         }
     }
 

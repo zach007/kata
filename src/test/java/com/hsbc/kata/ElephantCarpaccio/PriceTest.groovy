@@ -15,7 +15,8 @@ class PriceTest extends Specification {
         price.getTotalPrice(totalItems, pricePerItem, stateSode) == finalPrice
         where:
         totalItems | pricePerItem | stateSode || finalPrice
-        0          | 0            | 0         || 0
+        0          | 0            | "UT"      || 0
+        1000       | 2.19         | "UT"      || 1978.78545
     }
 
     //todo refactor code
@@ -29,6 +30,7 @@ class PriceTest extends Specification {
         0          || 0
         1.23       || 1.23
         1000       || 1000 - (1000 * 0.03)
+        2000       || 2000 - (2000 * 0.03)
         5000       || 5000 - (5000 * 0.05)
     }
 
