@@ -1,4 +1,4 @@
-package com.hsbc.kata.ChristmasLight;
+package com.hsbc.kata.christmaslight;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

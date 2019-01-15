@@ -1,4 +1,4 @@
-package com.hsbc.kata.ChristmasLight;
+package com.hsbc.kata.christmaslight;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;

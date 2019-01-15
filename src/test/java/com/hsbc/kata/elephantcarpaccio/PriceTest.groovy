@@ -1,4 +1,4 @@
-package com.hsbc.kata.ElephantCarpaccio
+package com.hsbc.kata.elephantcarpaccio
 
 import spock.lang.Specification
 import spock.lang.Unroll

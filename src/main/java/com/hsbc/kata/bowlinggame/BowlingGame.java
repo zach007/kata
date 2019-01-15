@@ -1,4 +1,4 @@
-package com.hsbc.kata.BowlingGame;
+package com.hsbc.kata.bowlinggame;
 
 
 public class BowlingGame {

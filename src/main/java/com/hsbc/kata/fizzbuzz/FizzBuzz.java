@@ -1,4 +1,4 @@
-package com.hsbc.kata.fizzBuzz;
+package com.hsbc.kata.fizzbuzz;
 
 public class FizzBuzz {
 
@@ -6,7 +6,7 @@ public class FizzBuzz {
         boolean multiplesOf3 = number % 3 == 0;
         boolean multiplesOf5 = number % 5 == 0;
         if (multiplesOf3 && multiplesOf5) {
-            return "fizzBuzz";
+            return "fizzbuzz";
         } else if (multiplesOf3) {
             return "fizz";
         } else if (multiplesOf5) {

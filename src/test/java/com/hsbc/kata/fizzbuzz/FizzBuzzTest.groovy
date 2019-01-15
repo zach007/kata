@@ -1,4 +1,4 @@
-package com.hsbc.kata.fizzBuzz
+package com.hsbc.kata.fizzbuzz
 
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -30,7 +30,7 @@ class FizzBuzzTest extends Specification {
         when:
         def result = fizzBuzz.checkNumber(number)
         then:
-        result == "fizzBuzz"
+        result == "fizzbuzz"
     }
 
     def "should print number when given a number isn't  multiples of 3 or 5 "() {
@@ -57,8 +57,8 @@ class FizzBuzzTest extends Specification {
         //buzz
         5      | "buzz"
         55     | "buzz"
-        //fizzBuzz
-        15     | "fizzBuzz"
-        30     | "fizzBuzz"
+        //fizzbuzz
+        15     | "fizzbuzz"
+        30     | "fizzbuzz"
     }
 }

@@ -1,4 +1,4 @@
-package com.hsbc.kata.ChristmasLight
+package com.hsbc.kata.christmaslight
 
 import spock.lang.Specification
 import spock.lang.Unroll
