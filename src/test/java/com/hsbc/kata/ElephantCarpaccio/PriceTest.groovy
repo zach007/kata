@@ -3,6 +3,7 @@ package com.hsbc.kata.ElephantCarpaccio
 import spock.lang.Specification
 import spock.lang.Unroll
 
+//todo there are some misunderstand about the requirement
 class PriceTest extends Specification {
     def price = new Price()
 
