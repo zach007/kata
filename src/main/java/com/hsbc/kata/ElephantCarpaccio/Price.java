@@ -3,6 +3,7 @@ package com.hsbc.kata.ElephantCarpaccio;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 public class Price {
     public BigDecimal getDiscountValue(BigDecimal p) {
@@ -30,19 +31,9 @@ public class Price {
     }
 
     public BigDecimal getStatePrice(BigDecimal discountPrice, String stateCode) {
-        if (stateCode.equals(StateRate.UT.getState())) {
-            return StateRate.UT.getStatePrice(discountPrice);
-        } else if (stateCode.equals(StateRate.NV.getState())) {
-            return StateRate.NV.getStatePrice(discountPrice);
-        } else if (stateCode.equals(StateRate.TX.getState())) {
-            return StateRate.TX.getStatePrice(discountPrice);
-        } else if (stateCode.equals(StateRate.AL.getState())) {
-            return StateRate.AL.getStatePrice(discountPrice);
-        } else if (stateCode.equals(StateRate.CA.getState())) {
-            return StateRate.CA.getStatePrice(discountPrice);
-        } else {
-            return discountPrice;
-        }
+        StateRate stateRate = Arrays.stream(StateRate.values()).filter(x -> stateCode.equalsIgnoreCase(x.name())).findFirst().orElse(StateRate.NONE);
+        return discountPrice.subtract(discountPrice.multiply(BigDecimal.valueOf(stateRate.getStateRate())));
+
     }
 
     public BigDecimal getInitPrice(int itemCount, BigDecimal itemPrice) {
@@ -50,23 +41,18 @@ public class Price {
     }
 
     enum StateRate {
-        UT("UT", 0.0685),
-        NV("NV", 0.0800),
-        TX("TX", 0.0625),
-        AL("AL", 0.0400),
-        CA("CA", 0.0825);
-        @Getter
-        private String state;
+        UT(0.0685),
+        NV(0.0800),
+        TX(0.0625),
+        AL(0.0400),
+        CA(0.0825),
+        NONE(0);
+
         @Getter
         private double stateRate;
 
-        StateRate(String state, double stateRate) {
-            this.state = state;
+        StateRate(double stateRate) {
             this.stateRate = stateRate;
-        }
-
-        public BigDecimal getStatePrice(BigDecimal discountPrice) {
-            return discountPrice.subtract(discountPrice.multiply(BigDecimal.valueOf(stateRate)));
         }
     }
 
@@ -79,15 +65,15 @@ public class Price {
         @Getter
         private BigDecimal orderValue;
         @Getter
-        private double discoutRate;
+        private double discountRate;
 
-        DiscoutRate(BigDecimal orderValue, double discoutRate) {
+        DiscoutRate(BigDecimal orderValue, double discountRate) {
             this.orderValue = orderValue;
-            this.discoutRate = discoutRate;
+            this.discountRate = discountRate;
         }
 
         public BigDecimal getDiscountPrice(BigDecimal initPrice) {
-            return initPrice.subtract(initPrice.multiply(BigDecimal.valueOf(discoutRate)));
+            return initPrice.subtract(initPrice.multiply(BigDecimal.valueOf(discountRate)));
         }
     }
 
