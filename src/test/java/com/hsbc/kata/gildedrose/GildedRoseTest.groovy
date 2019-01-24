@@ -84,7 +84,7 @@ class GildedRoseTest extends Specification {
         def QualityOf5Days = app.items[0].quality
         def sellInOf5Days = app.items[0].sellIn
         for (int i = 0; i < 1; i++) {
-           app.updateQuality()
+            app.updateQuality()
         }
         def qualityAfterConcert = app.items[0].quality
         def sellOutDays = app.items[0].sellIn
@@ -101,14 +101,14 @@ class GildedRoseTest extends Specification {
         sellOutDays == -1
     }
 
-    def "“Conjured” items degrade in Quality twice as fast as normal items"(){
+    def "“Conjured” items degrade in Quality twice as fast as normal items"() {
         Item[] items = [new Item("Conjured", 3, 10)]
         def app = new GildedRose(items)
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             app.updateQuality()
         }
         def quality = app.items[0].quality
         expect:
-        quality == 4
+        quality == 2
     }
 }
