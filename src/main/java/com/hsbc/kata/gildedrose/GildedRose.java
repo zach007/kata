@@ -9,7 +9,7 @@ public class GildedRose {
 
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Aged Brie") && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+/*            if (!items[i].name.equals("Aged Brie") && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (items[i].quality > 0) {
                     if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
                         items[i].quality = items[i].quality - 1;
@@ -55,8 +55,38 @@ public class GildedRose {
                         items[i].quality = items[i].quality + 1;
                     }
                 }
+            }*/
+            degradeQualityTwice(items[i]);
+            //increasesQualityByOlder(items[i]);
+        }
+    }
+
+    private void degradeQualityTwice(Item item) {
+        String name = item.name;
+        int currentDay = item.sellIn - 1;
+        int currentQuality;
+        if (currentDay < 0) {
+            currentQuality = item.quality - 2;
+        } else {
+            currentQuality = item.quality - 1;
+        }
+        item.sellIn = currentDay;
+        item.quality = currentQuality < 0 ? 0 : currentQuality;
+    }
+
+    private void increasesQualityByOlder(Item item) {
+        String name = item.name;
+        int quality = item.quality;
+        int sellIn = item.sellIn;
+        if (name.equals("Aged Brie")) {
+            if (sellIn < 0) {
+                quality += 1;
+            } else {
+                quality -= 1;
             }
         }
+        item.quality = quality < 0 ? 0 : quality;
+        item.sellIn = sellIn - 1;
     }
 }
 
