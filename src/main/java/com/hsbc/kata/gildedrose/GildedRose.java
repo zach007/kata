@@ -65,14 +65,52 @@ public class GildedRose {
         String name = item.name;
         int currentDay = item.sellIn - 1;
         int currentQuality;
-        if (currentDay < 0) {
+        if (name.equals("Aged Brie")) {
+            if (currentDay < 0) {
+                currentQuality = item.quality + 2;
+            } else {
+                currentQuality = item.quality + 1;
+            }
+            decreaseSellInByOne(item);
+            updateQuality(item, currentQuality);
+        } else if (name.equals("Sulfuras, Hand of Ragnaros")) {
+            // do nothing
+        } else if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (currentDay >= 10) {
+                currentQuality = item.quality + 1;
+            } else if (currentDay >= 5 && currentDay < 10) {
+                currentQuality = item.quality + 2;
+            } else if (currentDay >= 0 && currentDay < 5) {
+                currentQuality = item.quality + 3;
+            } else {
+                currentQuality = 0;
+            }
+            decreaseSellInByOne(item);
+            updateQuality(item, currentQuality);
+        } else if (name.equals("Conjured")) {
             currentQuality = item.quality - 2;
+            decreaseSellInByOne(item);
+            updateQuality(item, currentQuality);
         } else {
-            currentQuality = item.quality - 1;
+            if (currentDay < 0) {
+                currentQuality = item.quality - 2;
+            } else {
+                currentQuality = item.quality - 1;
+            }
+            decreaseSellInByOne(item);
+            updateQuality(item, currentQuality);
         }
-        item.sellIn = currentDay;
-        item.quality = currentQuality < 0 ? 0 : currentQuality;
     }
+
+    private void decreaseSellInByOne(Item item) {
+        item.sellIn -= 1;
+    }
+
+    private void updateQuality(Item item, int currentQuality) {
+        int quality = currentQuality < 0 ? 0 : currentQuality;
+        item.quality = quality > 50 ? 50 : quality;
+    }
+
 
     private void increasesQualityByOlder(Item item) {
         String name = item.name;
