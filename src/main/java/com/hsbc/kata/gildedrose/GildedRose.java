@@ -1,6 +1,9 @@
 package com.hsbc.kata.gildedrose;
 
 public class GildedRose {
+    public static final String INCREASE = "increase";
+    public static final String DECREASE = "decrease";
+    public static final String CLEAN = "Clean";
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -64,41 +67,36 @@ public class GildedRose {
     private void degradeQualityTwice(Item item) {
         String name = item.name;
         int currentDay = item.sellIn - 1;
-        int currentQuality;
-        if (name.equals("Aged Brie")) {
-            if (currentDay < 0) {
-                currentQuality = item.quality + 2;
-            } else {
-                currentQuality = item.quality + 1;
-            }
-            decreaseSellInByOne(item);
-            updateQuality(item, currentQuality);
-        } else if (name.equals("Sulfuras, Hand of Ragnaros")) {
-            // do nothing
-        } else if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            if (currentDay >= 10) {
-                currentQuality = item.quality + 1;
-            } else if (currentDay >= 5 && currentDay < 10) {
-                currentQuality = item.quality + 2;
-            } else if (currentDay >= 0 && currentDay < 5) {
-                currentQuality = item.quality + 3;
-            } else {
-                currentQuality = 0;
-            }
-            decreaseSellInByOne(item);
-            updateQuality(item, currentQuality);
-        } else if (name.equals("Conjured")) {
-            currentQuality = item.quality - 2;
-            decreaseSellInByOne(item);
-            updateQuality(item, currentQuality);
+        if (name.equals("Sulfuras, Hand of Ragnaros")) {
+
         } else {
-            if (currentDay < 0) {
-                currentQuality = item.quality - 2;
+            if (name.equals("Aged Brie")) {
+                if (currentDay < 0) {
+                    updateQualityByTimes(item, INCREASE, 2);
+                } else {
+                    updateQualityByTimes(item, INCREASE, 1);
+                }
+            } else if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (currentDay >= 10) {
+                    updateQualityByTimes(item, INCREASE, 1);
+                } else if (currentDay >= 5 && currentDay < 10) {
+                    updateQualityByTimes(item, INCREASE, 2);
+                } else if (currentDay >= 0 && currentDay < 5) {
+                    updateQualityByTimes(item, INCREASE, 3);
+                } else {
+                    updateQualityByTimes(item, CLEAN, 0);
+                }
+            } else if (name.equals("Conjured")) {
+                updateQualityByTimes(item, DECREASE, 2);
             } else {
-                currentQuality = item.quality - 1;
+                if (currentDay < 0) {
+                    updateQualityByTimes(item, DECREASE, 2);
+                } else {
+                    updateQualityByTimes(item, DECREASE, 1);
+                }
             }
             decreaseSellInByOne(item);
-            updateQuality(item, currentQuality);
+            updateQuality(item);
         }
     }
 
@@ -106,25 +104,23 @@ public class GildedRose {
         item.sellIn -= 1;
     }
 
-    private void updateQuality(Item item, int currentQuality) {
+    private void updateQualityByTimes(Item item, String command, int step) {
+        if (command.equals(INCREASE)) {
+            item.quality += step;
+        } else if (command.equals(DECREASE)) {
+            item.quality -= step;
+        } else if (command.equals(CLEAN)) {
+            item.quality = 0;
+        } else {
+
+        }
+    }
+
+    private void updateQuality(Item item) {
+        int currentQuality = item.quality;
         int quality = currentQuality < 0 ? 0 : currentQuality;
         item.quality = quality > 50 ? 50 : quality;
     }
 
-
-    private void increasesQualityByOlder(Item item) {
-        String name = item.name;
-        int quality = item.quality;
-        int sellIn = item.sellIn;
-        if (name.equals("Aged Brie")) {
-            if (sellIn < 0) {
-                quality += 1;
-            } else {
-                quality -= 1;
-            }
-        }
-        item.quality = quality < 0 ? 0 : quality;
-        item.sellIn = sellIn - 1;
-    }
 }
 
