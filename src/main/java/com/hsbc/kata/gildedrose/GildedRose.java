@@ -60,7 +60,6 @@ public class GildedRose {
                 }
             }*/
             degradeQualityTwice(items[i]);
-            //increasesQualityByOlder(items[i]);
         }
     }
 
@@ -71,32 +70,43 @@ public class GildedRose {
 
         } else {
             if (name.equals("Aged Brie")) {
-                if (currentDay < 0) {
-                    updateQualityByTimes(item, INCREASE, 2);
-                } else {
-                    updateQualityByTimes(item, INCREASE, 1);
-                }
+                updateAgedBrie(item, currentDay);
             } else if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (currentDay >= 10) {
-                    updateQualityByTimes(item, INCREASE, 1);
-                } else if (currentDay >= 5 && currentDay < 10) {
-                    updateQualityByTimes(item, INCREASE, 2);
-                } else if (currentDay >= 0 && currentDay < 5) {
-                    updateQualityByTimes(item, INCREASE, 3);
-                } else {
-                    updateQualityByTimes(item, CLEAN, 0);
-                }
+                updateBackstage(item, currentDay);
             } else if (name.equals("Conjured")) {
-                updateQualityByTimes(item, DECREASE, 2);
+                decreaseQuality(item, 2);
             } else {
-                if (currentDay < 0) {
-                    updateQualityByTimes(item, DECREASE, 2);
-                } else {
-                    updateQualityByTimes(item, DECREASE, 1);
-                }
+                updateNormalItem(item, currentDay);
             }
             decreaseSellInByOne(item);
-            updateQuality(item);
+        }
+    }
+
+    private void updateNormalItem(Item item, int currentDay) {
+        if (currentDay < 0) {
+            decreaseQuality(item, 2);
+        } else {
+            decreaseQuality(item, 1);
+        }
+    }
+
+    private void updateBackstage(Item item, int currentDay) {
+        if (currentDay >= 10) {
+            increaseQuality(item, 1);
+        } else if (currentDay >= 5 && currentDay < 10) {
+            increaseQuality(item, 2);
+        } else if (currentDay >= 0 && currentDay < 5) {
+            increaseQuality(item, 3);
+        } else {
+            item.quality = 0;
+        }
+    }
+
+    private void updateAgedBrie(Item item, int currentDay) {
+        if (currentDay < 0) {
+            increaseQuality(item, 2);
+        } else {
+            increaseQuality(item, 1);
         }
     }
 
@@ -104,23 +114,16 @@ public class GildedRose {
         item.sellIn -= 1;
     }
 
-    private void updateQualityByTimes(Item item, String command, int step) {
-        if (command.equals(INCREASE)) {
+    private void increaseQuality(Item item, int step) {
+        if (item.quality < 50) {
             item.quality += step;
-        } else if (command.equals(DECREASE)) {
-            item.quality -= step;
-        } else if (command.equals(CLEAN)) {
-            item.quality = 0;
-        } else {
-
         }
     }
 
-    private void updateQuality(Item item) {
-        int currentQuality = item.quality;
-        int quality = currentQuality < 0 ? 0 : currentQuality;
-        item.quality = quality > 50 ? 50 : quality;
+    private void decreaseQuality(Item item, int step) {
+        if (item.quality > 0) {
+            item.quality -= step;
+        }
     }
-
 }
 
