@@ -115,15 +115,15 @@ public class GildedRose {
     }
 
     private void increaseQuality(Item item, int step) {
-        if (item.quality < 50) {
-            item.quality += step;
-        }
+        int quality = item.quality + step;
+        int maxQuality = quality > 50 ? 50 : quality;
+        item.quality = maxQuality;
     }
 
     private void decreaseQuality(Item item, int step) {
-        if (item.quality > 0) {
-            item.quality -= step;
-        }
+        int quality = item.quality - step;
+        int minQuality = quality < 0 ? 0 : quality;
+        item.quality = minQuality;
     }
 }
 
