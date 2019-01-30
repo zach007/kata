@@ -6,6 +6,7 @@ public class SulfurasItem extends Item {
     }
 
     @Override
-    public void update(int currentDay) {
+    public void update() {
+        //do nothing
     }
 }

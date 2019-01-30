@@ -6,16 +6,17 @@ public class BackstageItem extends Item {
     }
 
     @Override
-    public void update(int currentDay) {
+    public void update() {
+        int currentDay = sellIn - 1;
         if (currentDay >= 10) {
             increaseQuality(1);
-        } else if (currentDay >= 5 && currentDay < 10) {
+        } else if (currentDay >= 5) {
             increaseQuality(2);
-        } else if (currentDay >= 0 && currentDay < 5) {
+        } else if (currentDay >= 0) {
             increaseQuality(3);
         } else {
             quality = 0;
         }
-        decreaseSellInByOne();
+        decreaseSellIn();
     }
 }

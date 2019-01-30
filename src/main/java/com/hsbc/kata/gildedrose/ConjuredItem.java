@@ -6,9 +6,9 @@ public class ConjuredItem extends Item {
     }
 
     @Override
-    public void update(int currentDay) {
+    public void update() {
         decreaseQuality(2);
-        decreaseSellInByOne();
+        decreaseSellIn();
     }
 
 }

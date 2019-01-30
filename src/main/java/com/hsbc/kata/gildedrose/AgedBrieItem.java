@@ -6,12 +6,13 @@ public class AgedBrieItem extends Item {
     }
 
     @Override
-    public void update(int currentDay) {
+    public void update() {
+        int currentDay = sellIn - 1;
         if (currentDay < 0) {
             increaseQuality(2);
         } else {
             increaseQuality(1);
         }
-        decreaseSellInByOne();
+        decreaseSellIn();
     }
 }
