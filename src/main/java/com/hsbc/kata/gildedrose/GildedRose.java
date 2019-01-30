@@ -70,43 +70,15 @@ public class GildedRose {
 
         } else {
             if (name.equals("Aged Brie")) {
-                updateAgedBrie(item, currentDay);
+                AgedBrieItem.updateAgedBrie(item, currentDay);
             } else if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                updateBackstage(item, currentDay);
+                BackstageItem.updateBackstage(item, currentDay);
             } else if (name.equals("Conjured")) {
-                decreaseQuality(item, 2);
+                item.decreaseQuality(2);
             } else {
-                updateNormalItem(item, currentDay);
+                NormalItem.updateNormalItem(item, currentDay);
             }
             decreaseSellInByOne(item);
-        }
-    }
-
-    private void updateNormalItem(Item item, int currentDay) {
-        if (currentDay < 0) {
-            decreaseQuality(item, 2);
-        } else {
-            decreaseQuality(item, 1);
-        }
-    }
-
-    private void updateBackstage(Item item, int currentDay) {
-        if (currentDay >= 10) {
-            increaseQuality(item, 1);
-        } else if (currentDay >= 5 && currentDay < 10) {
-            increaseQuality(item, 2);
-        } else if (currentDay >= 0 && currentDay < 5) {
-            increaseQuality(item, 3);
-        } else {
-            item.quality = 0;
-        }
-    }
-
-    private void updateAgedBrie(Item item, int currentDay) {
-        if (currentDay < 0) {
-            increaseQuality(item, 2);
-        } else {
-            increaseQuality(item, 1);
         }
     }
 
@@ -114,16 +86,5 @@ public class GildedRose {
         item.sellIn -= 1;
     }
 
-    private void increaseQuality(Item item, int step) {
-        int quality = item.quality + step;
-        int maxQuality = quality > 50 ? 50 : quality;
-        item.quality = maxQuality;
-    }
-
-    private void decreaseQuality(Item item, int step) {
-        int quality = item.quality - step;
-        int minQuality = quality < 0 ? 0 : quality;
-        item.quality = minQuality;
-    }
 }
 

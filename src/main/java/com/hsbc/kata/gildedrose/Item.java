@@ -17,4 +17,20 @@ public class Item {
     public String toString() {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
+
+    public void update(Item item, int currentDay) {
+
+    }
+
+    public void increaseQuality(int step) {
+        int quality = this.quality + step;
+        int maxQuality = quality > 50 ? 50 : quality;
+        this.quality = maxQuality;
+    }
+
+    public void decreaseQuality(int step) {
+        int quality = this.quality - step;
+        int minQuality = quality < 0 ? 0 : quality;
+        this.quality = minQuality;
+    }
 }
