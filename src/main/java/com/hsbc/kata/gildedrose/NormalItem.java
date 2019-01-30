@@ -5,11 +5,13 @@ public class NormalItem extends Item {
         super(name, sellIn, quality);
     }
 
-    public static void updateNormalItem(Item item, int currentDay) {
+    @Override
+    public void update(int currentDay) {
         if (currentDay < 0) {
-            item.decreaseQuality(2);
+            decreaseQuality(2);
         } else {
-            item.decreaseQuality(1);
+            decreaseQuality(1);
         }
+        decreaseSellInByOne();
     }
 }

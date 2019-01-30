@@ -64,27 +64,8 @@ public class GildedRose {
     }
 
     private void degradeQualityTwice(Item item) {
-        String name = item.name;
         int currentDay = item.sellIn - 1;
-        if (name.equals("Sulfuras, Hand of Ragnaros")) {
-
-        } else {
-            if (name.equals("Aged Brie")) {
-                AgedBrieItem.updateAgedBrie(item, currentDay);
-            } else if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                BackstageItem.updateBackstage(item, currentDay);
-            } else if (name.equals("Conjured")) {
-                item.decreaseQuality(2);
-            } else {
-                NormalItem.updateNormalItem(item, currentDay);
-            }
-            decreaseSellInByOne(item);
-        }
+        item.update(currentDay);
     }
-
-    private void decreaseSellInByOne(Item item) {
-        item.sellIn -= 1;
-    }
-
 }
 

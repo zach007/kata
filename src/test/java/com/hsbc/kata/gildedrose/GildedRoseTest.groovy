@@ -5,7 +5,7 @@ import spock.lang.Specification
 class GildedRoseTest extends Specification {
 
     def "foo"() {
-        Item[] items = [new Item("foo", 0, 0)]
+        Item[] items = [new NormalItem("foo", 0, 0)]
         GildedRose app = new GildedRose(items)
         app.updateQuality()
         expect:
@@ -13,7 +13,7 @@ class GildedRoseTest extends Specification {
     }
 
     def "Once the sell by date has passed, Quality degrades twice as fast"() {
-        Item[] items = [new Item("foo", 3, 10)]
+        Item[] items = [new NormalItem("foo", 3, 10)]
         def app = new GildedRose(items)
         for (int i = 0; i < 5; i++) {
             app.updateQuality()
@@ -24,7 +24,7 @@ class GildedRoseTest extends Specification {
     }
 
     def "The Quality of an item is never negative"() {
-        Item[] items = [new Item("foo", 1, 10)]
+        Item[] items = [new NormalItem("foo", 1, 10)]
         def app = new GildedRose(items)
         for (int i = 0; i < 10; i++) {
             app.updateQuality()
@@ -35,7 +35,7 @@ class GildedRoseTest extends Specification {
     }
 
     def "“Aged Brie” actually increases in Quality the older it gets"() {
-        Item[] items = [new Item("Aged Brie", 3, 10)]
+        Item[] items = [new AgedBrieItem("Aged Brie", 3, 10)]
         def app = new GildedRose(items)
         for (int i = 0; i < 10; i++) {
             app.updateQuality()
@@ -46,7 +46,7 @@ class GildedRoseTest extends Specification {
     }
 
     def "The Quality of an item is never more than 50"() {
-        Item[] items = [new Item("Aged Brie", 3, 10)]
+        Item[] items = [new AgedBrieItem("Aged Brie", 3, 10)]
         def app = new GildedRose(items)
         for (int i = 0; i < 50; i++) {
             app.updateQuality()
@@ -57,7 +57,7 @@ class GildedRoseTest extends Specification {
     }
 
     def "“Sulfuras”, being a legendary item, never has to be sold or decreases in Quality"() {
-        Item[] items = [new Item("Sulfuras, Hand of Ragnaros", 3, 10)]
+        Item[] items = [new SulfurasItem("Sulfuras, Hand of Ragnaros", 3, 10)]
         def app = new GildedRose(items)
         for (int i = 0; i < 50; i++) {
             app.updateQuality()
@@ -71,7 +71,7 @@ class GildedRoseTest extends Specification {
     }
 
     def "Backstage passes quality always increases and Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but Quality drops to 0 after the concert"() {
-        Item[] items = [new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10)]
+        Item[] items = [new BackstageItem("Backstage passes to a TAFKAL80ETC concert", 11, 10)]
         def app = new GildedRose(items)
         for (int i = 0; i < 6; i++) {
             app.updateQuality()
@@ -102,7 +102,7 @@ class GildedRoseTest extends Specification {
     }
 
     def "“Conjured” items degrade in Quality twice as fast as normal items"() {
-        Item[] items = [new Item("Conjured", 3, 10)]
+        Item[] items = [new ConjuredItem("Conjured", 3, 10)]
         def app = new GildedRose(items)
         for (int i = 0; i < 4; i++) {
             app.updateQuality()

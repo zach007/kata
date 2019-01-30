@@ -18,7 +18,7 @@ public class Item {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
 
-    public void update(Item item, int currentDay) {
+    public void update(int currentDay) {
 
     }
 
@@ -32,5 +32,9 @@ public class Item {
         int quality = this.quality - step;
         int minQuality = quality < 0 ? 0 : quality;
         this.quality = minQuality;
+    }
+
+    public void decreaseSellInByOne() {
+        sellIn -= 1;
     }
 }

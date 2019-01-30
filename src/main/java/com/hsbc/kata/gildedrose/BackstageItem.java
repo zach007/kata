@@ -5,15 +5,17 @@ public class BackstageItem extends Item {
         super(name, sellIn, quality);
     }
 
-    static void updateBackstage(Item item, int currentDay) {
+    @Override
+    public void update(int currentDay) {
         if (currentDay >= 10) {
-            item.increaseQuality(1);
+            increaseQuality(1);
         } else if (currentDay >= 5 && currentDay < 10) {
-            item.increaseQuality(2);
+            increaseQuality(2);
         } else if (currentDay >= 0 && currentDay < 5) {
-            item.increaseQuality(3);
+            increaseQuality(3);
         } else {
-            item.quality = 0;
+            quality = 0;
         }
+        decreaseSellInByOne();
     }
 }
