@@ -7,44 +7,22 @@ import java.util.List;
 
 @Log4j2
 public class ShoppingCart {
-    private int price;
     private List<Integer> priceList = Lists.newArrayList();
 
-    public void addPrice(int price) {
+    public void add(int price) {
         priceList.add(price);
     }
 
-    @Deprecated
-    public void add(int price) {
-        log.warn("@Deprecated");
-        addPrice(price);
-    }
-
-    public int getTotalPrice() {
+    public int calculateTotalPrice() {
         return priceList.stream().mapToInt(Integer::intValue).sum();
     }
 
-    @Deprecated
-    public int calculateTotalPrice() {
-        return getTotalPrice();
-    }
 
-
-    public boolean isDiscount() {
-        return getTotalPrice() >= 100;
-    }
-
-    @Deprecated
     public boolean hasDiscount() {
-        return isDiscount();
+        return calculateTotalPrice() >= 100;
     }
 
-    public int getProductNumber() {
-        return priceList.size();
-    }
-
-    @Deprecated
     public int numberOfProducts() {
-        return getProductNumber();
+        return priceList.size();
     }
 }
