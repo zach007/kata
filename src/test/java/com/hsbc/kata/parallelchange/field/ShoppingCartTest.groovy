@@ -20,7 +20,7 @@ class ShoppingCartTest extends Specification {
 
     def "singleItem_hasDiscountIfContainsAtLeastOneProductWorthAtLeast100"() {
         shoppingCart.add(100)
-        except:
+        expect:
         shoppingCart.hasDiscount() == true
     }
 
@@ -28,6 +28,19 @@ class ShoppingCartTest extends Specification {
         shoppingCart.add(99)
         expect:
         shoppingCart.hasDiscount() == false
+    }
+
+    def "test when buy list of item"() {
+        shoppingCart.add(10)
+        shoppingCart.add(20)
+        shoppingCart.add(50)
+        shoppingCart.add(50)
+        expect:
+        shoppingCart.calculateTotalPrice() == 130
+        and:
+        shoppingCart.hasDiscount() == true
+        and:
+        shoppingCart.numberOfProducts() == 4
     }
 
 }

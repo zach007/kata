@@ -6,6 +6,6 @@ class ImagineThisIsAClientInADifferentRepositoryTest extends Specification {
     def "singleItem_numberOfProductsInTheCart"() {
         def client = new ImagineThisIsAClientInADifferentRepository()
         expect:
-        "Total price is 50 euro" == client.formattedTotalPrice(50)
+        client.formattedTotalPrice(50) == "Total price is 50 euro"
     }
 }
