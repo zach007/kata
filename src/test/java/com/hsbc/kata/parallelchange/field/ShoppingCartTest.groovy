@@ -26,6 +26,7 @@ class ShoppingCartTest extends Specification {
 
     def "singleItem_doesNotHaveDiscountIfContainsNoProductsWorthAtLeast100"() {
         shoppingCart.add(99)
+        expect:
         shoppingCart.hasDiscount() == false
     }
 
