@@ -3,12 +3,21 @@ package com.hsbc.kata.racecar.telemetrysystem;
 public class TelemetryDiagnosticControls {
     private final String DiagnosticChannelConnectionString = "*111#";
 
+    public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+        this.telemetryClient = telemetryClient;
+    }
+
     private final TelemetryClient telemetryClient;
     private String diagnosticInfo = "";
 
-    public TelemetryDiagnosticControls() {
-        telemetryClient = new TelemetryClient();
+    public String getDiagnosticChannelConnectionString() {
+        return DiagnosticChannelConnectionString;
     }
+
+    /*public TelemetryDiagnosticControls() {
+        telemetryClient = new TelemetryClient();
+    }*/
+
 
     public String getDiagnosticInfo() {
         return diagnosticInfo;

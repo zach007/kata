@@ -12,7 +12,7 @@ public class TelemetryClient {
         return onlineStatus;
     }
 
-    public void connect(String telemetryServerConnectionString) {
+    public boolean connect(String telemetryServerConnectionString) {
         if (telemetryServerConnectionString == null || "".equals(telemetryServerConnectionString)) {
             throw new IllegalArgumentException();
         }
@@ -21,13 +21,15 @@ public class TelemetryClient {
         boolean success = connectionEventsSimulator.nextInt(10) <= 8;
 
         onlineStatus = success;
+        return true;
     }
 
-    public void disconnect() {
+    public boolean disconnect() {
         onlineStatus = false;
+        return onlineStatus;
     }
 
-    public void send(String message) {
+    public String send(String message) {
         if (message == null || "".equals(message)) {
             throw new IllegalArgumentException();
         }
@@ -50,9 +52,10 @@ public class TelemetryClient {
                             + "Local Rtrn Count............ 00\r\n"
                             + "Remote Rtrn Count........... 00";
 
-            return;
+            return diagnosticMessageResult;
         }
 
+        return null;
         // here should go the real Send operation (not needed for this exercise)
     }
 
