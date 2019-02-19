@@ -13,9 +13,12 @@ class TTelemetryDiagnosticControlsTest extends Specification {
         telemetryClient.getOnlineStatus() >> true
         telemetryClient.connect(telemetryDiagnosticControls.getDiagnosticChannelConnectionString()) >> true
         telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE) >> result
+        telemetryClient.receive() >> result
         when:
         telemetryDiagnosticControls.checkTransmission()
         then:
         telemetryDiagnosticControls.getDiagnosticInfo() == result
+        and:
+        1 * telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE)
     }
 }
