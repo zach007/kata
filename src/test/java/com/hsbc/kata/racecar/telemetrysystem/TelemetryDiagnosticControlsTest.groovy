@@ -2,7 +2,7 @@ package com.hsbc.kata.racecar.telemetrysystem
 
 import spock.lang.Specification
 
-class TTelemetryDiagnosticControlsTest extends Specification {
+class TelemetryDiagnosticControlsTest extends Specification {
     def telemetryClient = Mock(TelemetryClient)
     def telemetryDiagnosticControls = new TelemetryDiagnosticControls(telemetryClient)
 
