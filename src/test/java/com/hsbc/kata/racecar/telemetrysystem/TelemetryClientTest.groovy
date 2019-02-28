@@ -1,5 +1,6 @@
 package com.hsbc.kata.racecar.telemetrysystem
 
+import spock.lang.Shared
 import spock.lang.Specification
 
 /*
@@ -9,6 +10,8 @@ todo and then write test case for TelemetryDiagnosticControls , mock telemetryCl
 
 class TelemetryClientTest extends Specification {
     def telemetryClient = new TelemetryClient()
+    @Shared
+    def finalResult = "LAST TX rate................ 100 MBPS\r\n" + "HIGHEST TX rate............. 100 MBPS\r\n" + "LAST RX rate................ 100 MBPS\r\n" + "HIGHEST RX rate............. 100 MBPS\r\n" + "BIT RATE.................... 100000000\r\n" + "WORD LEN.................... 16\r\n" + "WORD/FRAME.................. 511\r\n" + "BITS/FRAME.................. 8192\r\n" + "MODULATION TYPE............. PCM/FM\r\n" + "TX Digital Los.............. 0.75\r\n" + "RX Digital Los.............. 0.10\r\n" + "BEP Test.................... -5\r\n" + "Local Rtrn Count............ 00\r\n" + "Remote Rtrn Count........... 00";
 
     def "should throw error when connectionString is null or empty"() {
         when:
@@ -22,13 +25,6 @@ class TelemetryClientTest extends Specification {
     }
 
     //todo how to test a random number generation
-    def "should return boolean when connectionString is not null or empty"() {
-        when:
-        telemetryClient.connect("why this happen")
-        then:
-        telemetryClient.onlineStatus == true
-    }
-
     def "should return false when disconnect"() {
         when:
         telemetryClient.disconnect()
@@ -36,34 +32,31 @@ class TelemetryClientTest extends Specification {
         telemetryClient.onlineStatus == false
     }
 
-    def "should throw exception when message is null or empty"() {
+    def "should return boolean when connectionString is not null or empty"() {
         when:
-        telemetryClient.send(message)
+        telemetryClient.connect("why this happen")
         then:
-        thrown IllegalArgumentException
-        where:
-        message | _
-        null    | _
-        ""      | _
+        telemetryClient.onlineStatus == true
     }
+
 
     def "should return message when send 'AT#UD' "() {
         when:
-        telemetryClient.send("AT#UD")
+        def result = telemetryClient.sendMessage("AT#UD")
         then:
-        telemetryClient.diagnosticMessageResult.length() > 0
+        result.length() > 0
     }
 
     def "should return empty message when not send 'AT#UD'"() {
         when:
-        telemetryClient.send("other parameter")
+        def result = telemetryClient.sendMessage("other parameter")
         then:
-        telemetryClient.diagnosticMessageResult == ""
+        result == ""
     }
 
     def "should return number when diagnosticMessageResult is null or empty"() {
         when:
-        def result = telemetryClient.receive(diagnosticMessageResult)
+        def result = telemetryClient.sendMessage(diagnosticMessageResult)
         then:
         result.matches("[0-9]+")
         and:
@@ -74,14 +67,19 @@ class TelemetryClientTest extends Specification {
         ""                      | _
     }
 
-    def "should return finalMessage when diagnosticMessageResult is not null or empty"() {
+    def "should return finalMessage when diagnosticMessageResult is 'AT#UD'"() {
         when:
-        def diagnosticMessageResult = "test case"
-        def result = telemetryClient.receive(diagnosticMessageResult)
+        def diagnosticMessageResult = "AT#UD"
+        def result = telemetryClient.sendMessage(diagnosticMessageResult)
         then:
-        result == diagnosticMessageResult
-        and:
-        telemetryClient.diagnosticMessageResult == ""
+        result == finalResult
     }
 
+    def "should return '' when diagnosticMessageResult is not null or empty"() {
+        when:
+        def diagnosticMessageResult = "other parameter"
+        def result = telemetryClient.sendMessage(diagnosticMessageResult)
+        then:
+        result == ""
+    }
 }
