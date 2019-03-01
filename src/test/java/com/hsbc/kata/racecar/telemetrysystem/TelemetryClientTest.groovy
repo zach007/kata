@@ -27,16 +27,16 @@ class TelemetryClientTest extends Specification {
     //todo how to test a random number generation
     def "should return false when disconnect"() {
         when:
-        telemetryClient.disconnect()
+        def onlineStatus = telemetryClient.disconnect()
         then:
-        telemetryClient.onlineStatus == false
+        onlineStatus == false
     }
 
     def "should return boolean when connectionString is not null or empty"() {
         when:
-        telemetryClient.connect("why this happen")
+        def onlineStatus = telemetryClient.connect("why this happen")
         then:
-        telemetryClient.onlineStatus == true
+        onlineStatus == true
     }
 
 

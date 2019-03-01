@@ -5,8 +5,6 @@ import java.util.Random;
 public class TelemetryClient {
     public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
     private final Random connectionEventsSimulator = new Random(42);
-
-    private boolean onlineStatus;
     public static final String DIAGNOSTIC_MESSAGE_RESULT =
             "LAST TX rate................ 100 MBPS\r\n"
                     + "HIGHEST TX rate............. 100 MBPS\r\n"
@@ -23,17 +21,14 @@ public class TelemetryClient {
                     + "Local Rtrn Count............ 00\r\n"
                     + "Remote Rtrn Count........... 00";
 
-    public boolean getOnlineStatus() {
-        return onlineStatus;
-    }
 
-    public void connect(String telemetryServerConnectionString) {
+    public boolean connect(String telemetryServerConnectionString) {
         illegalArgumentException(telemetryServerConnectionString);
 
         // simulate the operation on a real modem
         boolean success = connectionEventsSimulator.nextInt(10) <= 8;
 
-        onlineStatus = success;
+        return success;
     }
 
     private void illegalArgumentException(String telemetryServerConnectionString) {
@@ -42,8 +37,8 @@ public class TelemetryClient {
         }
     }
 
-    public void disconnect() {
-        onlineStatus = false;
+    public boolean disconnect() {
+        return false;
     }
 
 
