@@ -9,7 +9,14 @@ public class RomanNumerals {
     }
 
     public String convert(int number) {
-        if (number % RomanNumber.I.number == 0) {
+        if (RomanNumber.V.number == number) {
+            return RomanNumber.V.name();
+        } else if (number - RomanNumber.V.number > 0) {
+            int seed = number - RomanNumber.V.number;
+            return RomanNumber.V.name() + Strings.repeat(RomanNumber.I.name(), seed);
+        } else if (RomanNumber.V.number - number == 1) {
+            return RomanNumber.I.name() + RomanNumber.V.name();
+        } else if (number % RomanNumber.I.number == 0) {
             String name = RomanNumber.I.name();
             return Strings.repeat(name, number);
         }
