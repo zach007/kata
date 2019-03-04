@@ -18,5 +18,16 @@ class RomanNumeralsTest extends Specification {
         6      || "VI"
         7      || "VII"
         8      || "VIII"
+        9      || "IX"
+    }
+
+    def "should return the less Roman number when give a number"() {
+        expect:
+        romanNumberals.findLessSymbol(number) == lessSymbol
+        where:
+        number || lessSymbol
+        1      || RomanNumerals.RomanNumber.I
+        6      || RomanNumerals.RomanNumber.V
+        11     || RomanNumerals.RomanNumber.X
     }
 }
