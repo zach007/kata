@@ -56,6 +56,17 @@ public class RomanNumerals {
         return romanNumber;
     }
 
+    public RomanNumber findBiggestSymbol(int number) {
+        EnumSet<RomanNumber> enumSet = EnumSet.noneOf(RomanNumber.class);
+        for (RomanNumber romanNumber : RomanNumber.values()) {
+            if (romanNumber.number >= number) {
+                enumSet.add(romanNumber);
+            }
+        }
+        RomanNumber romanNumber = enumSet.stream().min(Comparator.comparing(e -> e.number)).orElse(null);
+        return romanNumber;
+    }
+
     enum RomanNumber {
         I(1),
         V(5),

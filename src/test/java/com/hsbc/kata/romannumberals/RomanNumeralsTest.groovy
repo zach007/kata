@@ -30,4 +30,14 @@ class RomanNumeralsTest extends Specification {
         6      || RomanNumerals.RomanNumber.V
         11     || RomanNumerals.RomanNumber.X
     }
+
+    def "should return the biggest Roman number when give a number"() {
+        expect:
+        romanNumberals.findBiggestSymbol(number) == lessSymbol
+        where:
+        number || lessSymbol
+        1      || RomanNumerals.RomanNumber.I
+        6      || RomanNumerals.RomanNumber.X
+        11     || RomanNumerals.RomanNumber.L
+    }
 }
