@@ -7,14 +7,11 @@ import java.util.EnumSet;
 
 public class RomanNumerals {
 
-    public static void main(String[] args) {
-        System.out.println(3 / 2);
-    }
-
     public String convert(int number) {
-
+        RomanNumber lessSymbol = findLessSymbol(number);
+        RomanNumber biggestSymbol = findBiggestSymbol(number);
         if (isNumberEqualsSymbol(number)) {
-            return RomanNumber.V.name();
+            return lessSymbol.name();
         } else if (isNumberBiggerThanSymbol(number)) {
             int seed = number - RomanNumber.V.number;
             return RomanNumber.V.name() + Strings.repeat(RomanNumber.I.name(), seed);
