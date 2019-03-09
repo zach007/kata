@@ -8,14 +8,14 @@ import java.util.EnumSet;
 public class RomanNumerals {
 
     public String convert(int number) {
-        RomanNumber lessSymbol = findLessSymbol(number);
-        RomanNumber biggestSymbol = findBiggestSymbol(number);
-        if (isNumberEqualsSymbol(number)) {
-            return lessSymbol.name();
-        } else if (isNumberBiggerThanSymbol(number)) {
-            int seed = number - RomanNumber.V.number;
-            return RomanNumber.V.name() + Strings.repeat(RomanNumber.I.name(), seed);
-        } else if (isNumberLessThanSymbol(number)) {
+        RomanNumber smallSymbol = findLessSymbol(number);
+        RomanNumber bigSymbol = findBiggestSymbol(number);
+        if (isNumberEqualsSmallSymbol(number, smallSymbol)) {
+            return smallSymbol.name();
+        } else if (isNumberBiggerThanSmallSymbol(number, smallSymbol) && !isNumberNotEqualsBigSmybleM1(number, bigSymbol)) {
+            int i = number / smallSymbol.number;
+            return Strings.repeat(smallSymbol.name(), i);
+        } else if (isNumberLessThanBigSymbol(number)) {
             if (isNumberLessOneThanOfSymbol(number)) {
                 return RomanNumber.I.name() + RomanNumber.V.name();
             } else {
@@ -26,7 +26,11 @@ public class RomanNumerals {
         return "";
     }
 
-    private boolean isNumberLessThanSymbol(int number) {
+    private boolean isNumberNotEqualsBigSmybleM1(int number, RomanNumber bigSymbol) {
+        return number == bigSymbol.number - 1;
+    }
+
+    private boolean isNumberLessThanBigSymbol(int number) {
         return number % RomanNumber.I.number == 0;
     }
 
@@ -34,12 +38,12 @@ public class RomanNumerals {
         return RomanNumber.V.number - number == 1;
     }
 
-    private boolean isNumberBiggerThanSymbol(int number) {
-        return number - RomanNumber.V.number > 0;
+    private boolean isNumberBiggerThanSmallSymbol(int number, RomanNumber smallSymbol) {
+        return number - smallSymbol.number > 0;
     }
 
-    private boolean isNumberEqualsSymbol(int number) {
-        return RomanNumber.V.number == number;
+    private boolean isNumberEqualsSmallSymbol(int number, RomanNumber smallSymbol) {
+        return smallSymbol.number == number;
     }
 
     public RomanNumber findLessSymbol(int number) {
