@@ -7,30 +7,37 @@ import java.util.EnumSet;
 
 public class RomanNumerals {
 
+    public static void main(String[] args) {
+        System.out.println(8 / 5);
+    }
+
     public String convert(int number) {
         RomanNumber smallSymbol = findLessSymbol(number);
         RomanNumber bigSymbol = findBiggestSymbol(number);
         if (isNumberEqualsSmallSymbol(number, smallSymbol)) {
             return smallSymbol.name();
-        } else if (isNumberBiggerThanSmallSymbol(number, smallSymbol) && !isNumberNotEqualsBigSmybleM1(number, bigSymbol)) {
-            int i = number / smallSymbol.number;
-            return Strings.repeat(smallSymbol.name(), i);
-        } else if (isNumberLessThanBigSymbol(number)) {
-            if (isNumberLessOneThanOfSymbol(number)) {
-                return RomanNumber.I.name() + RomanNumber.V.name();
-            } else {
-                String name = RomanNumber.I.name();
-                return Strings.repeat(name, number);
+        } else if (isNumberBiggerThanSmallSymbol(number, smallSymbol) && !isNumberEqualsBigSmybleM1(number, bigSymbol)) {
+            int i = number - smallSymbol.number;
+            if (i / 10 <= 10) {
+                return smallSymbol.name() + Strings.repeat(RomanNumber.I.name(), i);
+            } else if (1 == 0) {
+                System.out.println(1);
             }
+        } else if (isNumberEqualsBigSmybleM1(number, bigSymbol)) {
+            return RomanNumber.I.name() + RomanNumber.V.name();
+        } else if (isNumberLessThanBigSymbol(number, bigSymbol)) {
+            String name = RomanNumber.I.name();
+            return Strings.repeat(name, number);
         }
         return "";
     }
 
-    private boolean isNumberNotEqualsBigSmybleM1(int number, RomanNumber bigSymbol) {
+    private boolean isNumberEqualsBigSmybleM1(int number, RomanNumber bigSymbol) {
         return number == bigSymbol.number - 1;
     }
 
-    private boolean isNumberLessThanBigSymbol(int number) {
+    private boolean isNumberLessThanBigSymbol(int number, RomanNumber bigSymbol) {
+
         return number % RomanNumber.I.number == 0;
     }
 
