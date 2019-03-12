@@ -46,12 +46,7 @@ public class RomanNumerals {
     }
 
     private boolean isNumberLessThanBigSymbol(int number, RomanNumber bigSymbol) {
-
-        return number % RomanNumber.I.number == 0;
-    }
-
-    private boolean isNumberLessOneThanOfSymbol(int number) {
-        return RomanNumber.V.number - number == 1;
+        return number % bigSymbol.number == 0;
     }
 
     private boolean isNumberBiggerThanSmallSymbol(int number, RomanNumber smallSymbol) {
