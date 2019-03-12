@@ -18,7 +18,12 @@ class RomanNumeralsTest extends Specification {
         6      || "VI"
         7      || "VII"
         8      || "VIII"
-        // 9      || "IX"
+        9      || "IX"
+        14     || "XIV"
+        21     || "XXI"
+        49     || "XLIX"
+        50     || "L"
+        99     || "XCIX"
     }
 
     def "should return the less Roman number when give a number"() {

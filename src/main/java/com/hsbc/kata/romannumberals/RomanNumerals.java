@@ -18,13 +18,22 @@ public class RomanNumerals {
             return smallSymbol.name();
         } else if (isNumberBiggerThanSmallSymbol(number, smallSymbol) && !isNumberEqualsBigSmybleM1(number, bigSymbol)) {
             int i = number - smallSymbol.number;
-            if (i / 10 <= 10) {
+            if (i / 10 <= 10 && i <= 3) {
                 return smallSymbol.name() + Strings.repeat(RomanNumber.I.name(), i);
-            } else if (1 == 0) {
-                System.out.println(1);
+            } else if (i / 10 <= 10 && i > 3) {
+                return smallSymbol.name() + convert(i);
             }
         } else if (isNumberEqualsBigSmybleM1(number, bigSymbol)) {
-            return RomanNumber.I.name() + RomanNumber.V.name();
+            int i = number - smallSymbol.number;
+            if (i / 10 <= 10) {
+                if (bigSymbol.number >= 50) {
+                    return RomanNumber.X + bigSymbol.name() + RomanNumber.I + RomanNumber.X;
+                } else {
+                    return RomanNumber.I.name() + bigSymbol.name();
+                }
+            } else if (1 == 0) {
+                System.out.println(2);
+            }
         } else if (isNumberLessThanBigSymbol(number, bigSymbol)) {
             String name = RomanNumber.I.name();
             return Strings.repeat(name, number);
