@@ -1,6 +1,12 @@
 package com.hsbc.kata.singasong;
 
+import java.util.List;
+
 public class Song {
+    private static final String prefixString = "There was an old lady who swallowed a ";
+    private static final String middleString = ".\nI don't know why she swallowed a ";
+    private static final String suffixString = " - perhaps she'll die!\\n\" + \"\\n\"";
+
     public static void main(String[] args) {
 
         String song = "There was an old lady who swallowed a fly.\n" +
@@ -45,5 +51,17 @@ public class Song {
                 "...She's dead, of course!";
 
         System.out.println(song);
+    }
+
+    public String lyricsFor(List<String> animal) {
+        if (animal.isEmpty()) {
+            return "";
+        } else if (animal.size() == 1) {
+            String oneAnimal = animal.get(0);
+            return prefixString + oneAnimal + middleString + oneAnimal + suffixString;
+        } else {
+            //todo
+            return null;
+        }
     }
 }
