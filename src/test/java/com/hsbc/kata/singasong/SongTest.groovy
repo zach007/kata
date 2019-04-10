@@ -28,4 +28,7 @@ class SongTest extends Specification {
                 .append(System.lineSeparator())
         lyrics == sb.toString()
     }
+
+    def "should return two short verse for two animals"() {
+    }
 }
