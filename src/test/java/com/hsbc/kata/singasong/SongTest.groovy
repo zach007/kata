@@ -19,14 +19,7 @@ class SongTest extends Specification {
         def animal = Lists.newArrayList("fly")
         def lyrics = song.lyricsFor(animal)
         then:
-        System.lineSeparator()
-        def sb = new StringBuilder()
-        sb.append("There was an old lady who swallowed a fly.")
-                .append(System.lineSeparator())
-                .append("I don't know why she swallowed a fly - perhaps she'll die!")
-                .append(System.lineSeparator())
-                .append(System.lineSeparator())
-        lyrics == sb.toString()
+        lyrics == '''There was an old lady who swallowed a fly.\nI don't know why she swallowed a fly - perhaps she'll die!\n\n'''
     }
 
     def "should return two short verse for two animals"() {
@@ -49,7 +42,7 @@ class SongTest extends Specification {
                 .append("I don't know why she swallowed a fly - perhaps she'll die!")
                 .append(System.lineSeparator())
                 .append(System.lineSeparator())
-
+        lyrics == sb.toString()
 
     }
 }

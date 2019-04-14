@@ -5,7 +5,7 @@ import java.util.List;
 public class Song {
     private static final String prefixString = "There was an old lady who swallowed a ";
     private static final String middleString = ".\nI don't know why she swallowed a ";
-    private static final String suffixString = " - perhaps she'll die!\\n\" + \"\\n\"";
+    private static final String suffixString = " - perhaps she'll die!\n" + "\n";
 
     public static void main(String[] args) {
 
