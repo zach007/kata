@@ -14,10 +14,20 @@ public class Song {
                 return prefixString + Animal.fly.name() + middleString + Animal.fly.name() + suffixString;
             }
         } else {
-            for (String a : animal) {
-
+            StringBuilder sb = new StringBuilder();
+            Animal[] values = Animal.values();
+            for (int i = 0; i < values.length; i++) {
+                Animal value = values[i];
+                if (value.name().equals(animal.get(i))) {
+                    sb.append(prefixString)
+                            .append(value.name())
+                            .append(value.verse)
+                            .append(middleString)
+                            .append(value.name())
+                            .append(suffixString);
+                }
             }
-            return null;
+            return sb.toString();
         }
         return null;
     }
@@ -74,7 +84,7 @@ public class Song {
 
     enum Animal {
         fly(""),
-        spider("That wriggled and wiggled and tickled inside her.\n");
+        spider("\nThat wriggled and wiggled and tickled inside her.\n");
 
         @Getter
         private String verse;
