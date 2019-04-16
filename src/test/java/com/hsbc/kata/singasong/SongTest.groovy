@@ -45,4 +45,28 @@ class SongTest extends Specification {
         lyrics == sb.toString()
 
     }
+
+    def "should return three short verse for three animals"() {
+        when:
+        def animals = Lists.newArrayList("fly", "spider", "bird")
+        def lyrics = song.lyricsFor(animals)
+        then:
+        def sb = new StringBuilder()
+        sb.append("There was an old lady who swallowed a fly.")
+                .append(System.lineSeparator())
+                .append("I don't know why she swallowed a fly - perhaps she'll die!")
+                .append(System.lineSeparator())
+                .append(System.lineSeparator())
+                .append("There was an old lady who swallowed a spider;")
+                .append(System.lineSeparator())
+                .append("That wriggled and wiggled and tickled inside her.")
+                .append(System.lineSeparator())
+                .append("She swallowed the spider to catch the fly;")
+                .append(System.lineSeparator())
+                .append("I don't know why she swallowed a fly - perhaps she'll die!")
+                .append(System.lineSeparator())
+                .append(System.lineSeparator())
+        lyrics == sb.toString()
+
+    }
 }

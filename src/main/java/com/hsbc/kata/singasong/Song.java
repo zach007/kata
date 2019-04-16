@@ -1,5 +1,6 @@
 package com.hsbc.kata.singasong;
 
+import com.google.common.base.Strings;
 import lombok.Getter;
 
 import java.util.List;
@@ -18,10 +19,19 @@ public class Song {
             Animal[] values = Animal.values();
             for (int i = 0; i < values.length; i++) {
                 Animal value = values[i];
+
+                String bar = "";
+
+                if (i - 1 >= 0) {
+                    Animal beforeValue = values[i - 1];
+                    bar = beforeValue.name();
+                }
                 if (value.name().equals(animal.get(i))) {
                     sb.append(prefixString)
                             .append(value.name())
                             .append(value.verse)
+                            //todo
+                            .append(foo(value.name(), bar))
                             .append(middleString)
                             .append(value.name())
                             .append(suffixString);
@@ -30,6 +40,15 @@ public class Song {
             return sb.toString();
         }
         return null;
+    }
+
+    private String foo(String animal, String beforeValue) {
+        if (!Strings.isNullOrEmpty(beforeValue)) {
+            return String.format("She swallowed the %s to catch the %s", animal, beforeValue);
+        }
+        {
+            return "";
+        }
     }
 
     private static final String prefixString = "There was an old lady who swallowed a ";
