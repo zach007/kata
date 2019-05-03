@@ -45,24 +45,20 @@ public class Song {
     public String lyricsFor(List<String> animal) {
         if (animal.isEmpty()) {
             return "";
-        } else if (animal.size() == 1) {
-            String oneAnimal = animal.get(0);
-            if (oneAnimal.equalsIgnoreCase(Animal.fly.name())) {
-                return Animal.fly.verse + suffixString;
-            }
         } else {
+            StringBuilder sb = new StringBuilder();
             Animal[] values = Animal.values();
             for (int i = 0; i < animal.size(); i++) {
                 String name = animal.get(i);
                 for (int j = 0; j < values.length; j++) {
                     Animal value = values[j];
                     if (name.equals(value)) {
-                        return value.verse + suffixString;
+                        sb.append(value.verse + suffixString);
                     }
                 }
             }
+            return sb.toString();
         }
-        return null;
     }
 
     enum Animal {
