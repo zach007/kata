@@ -42,6 +42,7 @@ public class Song {
         System.out.println(song);
     }
 
+    //todo write test first and then write the code
     public String lyricsFor(List<String> animal) {
         if (animal.isEmpty()) {
             return "";
