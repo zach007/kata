@@ -4,61 +4,19 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 class FizzBuzzTest extends Specification {
+
     def fizzBuzz = new FizzBuzz()
 
-    def "should return fizz when given a 3"() {
-        given:
-        def number = 3
-        when:
-        def result = fizzBuzz.checkNumber(number)
-        then:
-        result == "fizz"
-    }
-
-    def "should return buzz when given 5 "() {
-        given:
-        def number = 5
-        when:
-        def result = fizzBuzz.checkNumber(number)
-        then:
-        result == "buzz"
-    }
-
-    def "should return fizzBuzz when given 15"() {
-        given:
-        def number = 15
-        when:
-        def result = fizzBuzz.checkNumber(number)
-        then:
-        result == "fizzbuzz"
-    }
-
-    def "should print number when given a number isn't  multiples of 3 or 5 "() {
-        given:
-        def number = 1
-        when:
-        def result = fizzBuzz.checkNumber(number)
-        then:
-        result == String.valueOf(number)
-    }
-
     @Unroll
-    def "should return #result when given #number"() {
+    def "should return #result when input #parameter"() {
         expect:
-        fizzBuzz.checkNumber(number) == result
+        fizzBuzz.getResult(parameter) == result
         where:
-        number | result
-        //normal number
-        1      | "1"
-        2      | "2"
-        //fizz
-        3      | "fizz"
-        6      | "fizz"
-        //buzz
-        5      | "buzz"
-        55     | "buzz"
-        //fizzbuzz
-        15     | "fizzbuzz"
-        30     | "fizzbuzz"
+        parameter || result
+        1         || "1"
+        3         || "fizz"
+        5         || "buzz"
+        15        || "fizzBuzz"
     }
+
 }
